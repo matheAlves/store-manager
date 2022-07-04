@@ -1,6 +1,18 @@
 const express = require('express');
+require('express-async-errors');
+const productsRoute = require('./routes/productsRoute');
 
 const app = express();
+
+app.use('/products', productsRoute);
+
+app.use((err, _req, res, _next) => {
+  const { name, message } = err;
+  switch (name) {
+    case 'NotFound': res.status(404).json({ message }); break;
+    default: console.warn(err); res.sendStatus(500);
+  }
+});
 
 // não remova esse endpoint, é para o avaliador funcionar
 app.get('/', (_request, response) => {
