@@ -10,7 +10,12 @@ app.use('/products', productsRoute);
 app.use((err, _req, res, _next) => {
   const { name, message } = err;
   switch (name) {
-    case 'NotFound': res.status(404).json({ message }); break;
+    case 'NotFound': res.status(404).json({ message });
+      break;
+    case 'ValidationError':
+      if (message.includes('length')) return res.status(422).json({ message });
+      if (message.includes('required')) return res.status(400).json({ message });
+      break;
     default: console.warn(err); res.sendStatus(500);
   }
 });

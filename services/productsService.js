@@ -9,7 +9,7 @@ const productsService = {
   }).required()),
 
   validateBodyAdd: runSchema(Joi.object({
-    name: Joi.string().required().max(100),
+    name: Joi.string().required().min(5),
   })),
 
   async list() {
