@@ -1,11 +1,13 @@
 const express = require('express');
 require('express-async-errors');
 const productsRoute = require('./routes/productsRoute');
+const salesRoute = require('./routes/salesRoute');
 
 const app = express();
 app.use(express.json());
 
 app.use('/products', productsRoute);
+app.use('/sales', salesRoute);
 
 app.use((err, _req, res, _next) => {
   const { name, message } = err;
@@ -13,9 +15,9 @@ app.use((err, _req, res, _next) => {
     case 'NotFound': res.status(404).json({ message });
       break;
     case 'ValidationError':
-      if (message.includes('length')) return res.status(422).json({ message });
       if (message.includes('required')) return res.status(400).json({ message });
-      break;
+    return res.status(422).json({ message });
+    
     default: console.warn(err); res.sendStatus(500);
   }
 });
