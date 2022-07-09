@@ -13,6 +13,21 @@ const salesModel = {
 
     await db.query(sql, [saleId, prodId, quantity]);
   },
+
+  async list() {
+    const sql = `
+    SELECT 
+    id AS saleId, 
+    date, 
+    product_id AS productId, 
+    quantity 
+    FROM StoreManager.sales
+    INNER JOIN sales_products 
+    ON sales.id = sales_products.sale_id
+    ORDER BY sales.id, sales_products.product_id;`;
+    const [items] = await db.query(sql);
+    return items;
+  },
 };
 
 module.exports = salesModel;

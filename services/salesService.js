@@ -26,6 +26,25 @@ const salesService = {
   async addToSalesProducts(id, sale) {
     await salesModel.addToSalesProducts(id, sale.productId, sale.quantity);
   },
+
+  async list() {
+    const result = await salesModel.list();
+    return result;
+  },
+
+  async byId(id) {
+    const all = await salesModel.list();
+    const resultWithId = all.filter((s) => s.saleId === Number(id));
+    
+    if (!resultWithId.length) throwError('NotFound', 'Sale not found');
+
+    const resultWithoutId = resultWithId.map((s) => {
+      const { saleId, ...result } = s;
+      return result;
+    });    
+
+    return resultWithoutId;
+  },
 };
 
 module.exports = salesService;

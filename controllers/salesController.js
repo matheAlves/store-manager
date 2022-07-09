@@ -26,6 +26,17 @@ const salesController = {
 
     res.status(201).json(result);
   },
+
+  async list(_req, res) {
+    const result = await salesService.list();
+    res.status(200).json(result);
+  },
+
+  async byId(req, res) {
+    const { id } = req.params;
+    const result = await salesService.byId(id);
+    res.status(200).json(result);
+  },
 };
 
 module.exports = salesController;
