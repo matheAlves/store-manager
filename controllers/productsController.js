@@ -28,6 +28,13 @@ const productsController = {
     const result = { id, name };
     res.status(200).json(result);
   },
+
+  async delete(req, res) {
+    const { id } = req.params;
+    await productsService.checkExists(id);
+    await productsService.delete(id);
+    res.sendStatus(204);
+  },
 };
 
 module.exports = productsController;

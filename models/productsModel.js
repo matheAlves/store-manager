@@ -33,6 +33,13 @@ const productsModel = {
 
     await db.query(sql, [name, id]);
   },
+
+  async delete(id) {
+    const sql = `DELETE FROM StoreManager.products
+    WHERE id = ?`;
+
+    await db.query(sql, [id]);
+  },
 };
 
 module.exports = productsModel;
