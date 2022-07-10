@@ -32,6 +32,9 @@ const productsService = {
     return result;
   },
   
+  async edit(id, name) {
+    await productsModel.edit(id, name);
+  },
 };
 
 module.exports = productsService;
