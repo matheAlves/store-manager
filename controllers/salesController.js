@@ -1,7 +1,12 @@
 const salesService = require('../services/salesService');
 
 const salesController = {
-    /** @type {import('express').RequestHandler} */
+  /** @type {import('express').RequestHandler} */
+  async list(_req, res) {
+    const result = await salesService.list();
+    res.status(200).json(result);
+  },
+
   async add(req, res) {
     // valida o corpo da req e retorna as vendas
     const sales = await Promise.all(
@@ -25,11 +30,6 @@ const salesController = {
     };
 
     res.status(201).json(result);
-  },
-
-  async list(_req, res) {
-    const result = await salesService.list();
-    res.status(200).json(result);
   },
 
   async byId(req, res) {

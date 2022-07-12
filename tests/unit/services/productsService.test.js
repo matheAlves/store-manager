@@ -8,6 +8,7 @@ chai.use(chaiAsPromised);
 
 describe('services/productsService', () => {
   beforeEach(sinon.restore)
+
   describe('list', () => {
     it('throws error if model throws error', () => {
       sinon.stub(productsModel, 'list').rejects();
@@ -37,6 +38,5 @@ describe('services/productsService', () => {
       sinon.stub(productsModel, 'list').resolves(result);
       chai.expect(productsService.list()).to.eventually.equal(result);
     });
-
-  })
-})
+  });
+});
